@@ -1,0 +1,33 @@
+---
+version: '3.7'
+
+services:
+  mysql:
+    hostname: mysql
+    container_name: mysql
+    restart: always
+    image: hub.deeprobe.online/library/mysql:8.0.37
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      #MYSQL_DATABASE: mysql
+      MYSQL_ROOT_PASSWORD: XpWQ9Hu5S/643WmE
+      #MYSQL_USER: normal
+      #MYSQL_PASSWORD: 2GVv6apyzotUsI5y
+    volumes:
+      - ./data:/var/lib/mysql
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+      - ./my.cnf:/etc/mysql/my.cnf
+    networks:
+      - mysql
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: '10m'
+
+
+networks:
+  mysql:
+    external: true
